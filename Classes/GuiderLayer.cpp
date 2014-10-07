@@ -1,8 +1,9 @@
 #include "GuiderLayer.h"
 #include "define.h"
 #include "BackgroundLayer.h"
+#include "LandSprite.h"
+#include "BirdSprite.h"
 #include "GamePlatform.h"
-#include "GameRunningScene.h"
 USING_NS_CC;
 
 Scene* GuiderLayer::createScene()
@@ -47,18 +48,20 @@ bool GuiderLayer::init()
     guider->setPosition(origin.x+visibleSize.width/2, origin.y+visibleSize.height*2/5);
     this->addChild(guider);
     
-    auto birdAndLand = GamePlatform::create();
-    this->addChild(birdAndLand);
-    
+    //auto birdAndLand = GamePlatform::create();
+    //this->addChild(birdAndLand);
+    auto spriteBird = BirdSprite::create();
+    this->addChild(spriteBird);
+
+	auto landLayer = Land::create();
+	this->addChild(landLayer);
     return true;
 }
-
-
 void GuiderLayer::onEnter()
 {
     Layer::onEnter();
     _touchOneByeOne = EventListenerTouchOneByOne::create();
-    _touchOneByeOne->setSwallowTouches(false);
+    _touchOneByeOne->setSwallowTouches(true);
     _touchOneByeOne->onTouchBegan =[=] (Touch *t, Event *e)
     {
         log("guider touch begin");
@@ -67,7 +70,7 @@ void GuiderLayer::onEnter()
     _touchOneByeOne->onTouchEnded =[=] (Touch *t, Event *e)
     {
         
-        Director::getInstance()->replaceScene(TransitionFade::create(CHANGESCENE_TIME, GameScene::createScene()));
+        Director::getInstance()->replaceScene(/*TransitionFade::create(CHANGESCENE_TIME, */GamePlatform::createScene());
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_touchOneByeOne, this);
     

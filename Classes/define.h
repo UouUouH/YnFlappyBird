@@ -1,7 +1,7 @@
 #pragma once
-#define BIRD			0X01
-#define LAND			0x02
-#define	PIPE			0X03
+#define BIRD			1
+#define LAND			2
+#define	PIPE			4
 #define BIRD_TAG        1
 #define LAND1_TAG        2
 #define LAND2_TAG       3
@@ -46,3 +46,9 @@
 
 #define CHANGESCENE_TIME    0.5f
 
+#define SCOREBORD_TIME		0.3f
+
+#define COPPER_MEDAL		10
+#define	SILVER_MEDAL		20
+#define	GOLD_MEDAL			30
+#define ADDSCORE_FRE		0.05f

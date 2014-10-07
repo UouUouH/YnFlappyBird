@@ -29,7 +29,7 @@ bool BirdSprite::init()
     
     body->setCategoryBitmask(BIRD);
     body->setCollisionBitmask(LAND|PIPE);
-    body->setContactTestBitmask(BIRD);
+    body->setContactTestBitmask(LAND|PIPE);
     
     this->setPhysicsBody(body);
     this->setPosition(origin.x+visibleSize.width/2, origin.y+visibleSize.height*0.6);
@@ -78,7 +78,7 @@ void BirdSprite::PrepareToFly()
     this->getPhysicsBody()->setGravityEnable(true);
     auto animate = Animate::create(AnimationCache::getInstance()->getAnimation(BIRD_ANIMATION));
     this->runAction(RepeatForever::create(animate));
-    this->getPhysicsBody()->setVelocity(GRAVITY);
+    //this->getPhysicsBody()->setVelocity(GRAVITY);
 
 }
 void BirdSprite::FlyUpward()
@@ -98,10 +98,11 @@ void BirdSprite::SetFlyingDirection()
 
 void BirdSprite::dying()
 {
-    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("/sounds/sfx_die.mp3");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sfx_die.mp3",false, 1, 0, 1);
     this->getPhysicsBody()->setGravityEnable(true);
     this->setRotation(BIRD_DIE_ROTATION);
     this->stopAllActions();
+    this->getPhysicsBody()->setContactTestBitmask(0);
 }
 
 
